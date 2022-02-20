@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People coming to this show</title>
+    {%  load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="main_content">
+    <h2>Guests coming to this show!</h2>
+</div>
+{%  for one_rsvp in current_show_rsvps %}
+<div class="main_content">
+    <p>{{one_rsvp.first_name}} {{one_rsvp.last_name}}</p>
+</div>
+{% endfor %}
+<a href="/shows">Go back to shows</a>
+</body>
+</html>

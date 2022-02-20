@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shows</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="nav_bar">
+        <a href="/">Home</a>
+        <a href="/shows">Shows</a>
+        <a href="/media">Media</a>
+        <a href="/login_reg">Login or Register</a>
+        {% if 'user_id' in request.session %}
+        <a href="/logout">Log Out</a>
+        {% endif %}
+    </div>
+    <div class="main_content">
+        <img id='plea_logo_with_band_2' src="{% static 'images/plea_logo_with_band_2.jpg' %}" alt="Plea logo with band 2">
+    </div>
+    <div class="header">
+        <h1>Future Shows</h1>
+    </div>
+    {% for one_show in upcoming_shows %}
+    <div class="show_display">
+        <h1>{{one_show.name}}</h1>
+        <p>{{one_show.venue}}</p>
+        <p>{{one_show.city}}, {{one_show.state}}</p>
+        <p>{{one_show.show_date}} at {{one_show.time}}</p>
+        <div id="comment">
+            {% for one_comment in one_show.comments_posted_on.all %}
+            <p>{{one_comment.comment}}</p>
+            <p> Posted by: {{one_comment.posted_by.first_name}} {{one_comment.posted_by.last_name}}</p>
+            {% endfor %}
+        </div>
+        {% if 'user_id' in request.session %}
+        <form action="/add_comment" method="post">
+            {% csrf_token %}
+            <label for="comment">Add comment:</label>
+            <input type="text" id="comment" name="comment">
+            <input type="hidden" name="id" value="{{one_show.id}}">
+            <input type="submit" value="Submit Comment">
+        </form>
+        <a href="/rsvp/{{request.session.user_id}}/{{one_show.id}}">Click here to let Plea of Insanity know you're coming to this show!</a>
+        {% endif %}
+        <p>{{one_show.rsvp.count}} people are coming to this show! <a href="/rsvps/{{one_show.id}}">Click here to see who is coming to this show!</a></p>
+    </div>
+    {% endfor %}
+    <div class="header">
+        <h1>Past Shows</h1>
+    </div>
+    {% for one_show in past_shows %}
+    <div class="show_display">
+        <h1>{{one_show.name}}</h1>
+        <p>{{one_show.venue}}</p>
+        <p>{{one_show.city}}, {{one_show.state}}</p>
+        <p>{{one_show.show_date}} at {{one_show.time}}</p>
+        <div id="comment">
+            {% for one_comment in one_show.comments_posted_on.all %}
+            <p>{{one_comment.comment}}</p>
+            <p> Posted by: {{one_comment.posted_by.first_name}} {{one_comment.posted_by.last_name}}</p>
+            {% endfor %}
+        </div>
+        {% if 'user_id' in request.session %}
+        <form action="/add_comment" method="post">
+            {% csrf_token %}
+            <label for="comment">Add comment:</label>
+            <input type="text" id="comment" name="comment">
+            <input type="hidden" name="id" value="{{one_show.id}}">
+            <input type="submit" value="Submit Comment">
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+</body>
+</html>

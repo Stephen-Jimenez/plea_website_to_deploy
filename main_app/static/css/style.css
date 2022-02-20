@@ -1,0 +1,74 @@
+body {
+    background-color: black;
+}
+#plea_logo {
+    max-width: 800px;
+}
+#plea_logo_with_band {
+    max-width: 500px;
+}
+.main_content {
+    display: flex;
+    justify-content: center;
+}
+#nav_bar {
+    min-height: 40px;
+    display: flex;
+    justify-content: space-around;
+}
+#nav_bar a {
+    color: red;
+}
+h2 {
+    color: red;
+}
+.show_display {
+    background-color: red;
+}
+#member_photos, img {
+    display: block;
+}
+p {
+    color: red;
+}
+.header h1 {
+    text-align: center;
+    color: red;
+}
+#wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    color: red;
+}
+
+label, input {
+    display: block;
+}
+
+.submit {
+    margin: 15px;
+}
+#errors {
+    display: flex;
+    justify-content: center;
+    color: red;
+}
+#plea_logo_with_band_2 {
+    max-width: 700px;
+}
+#plea_logo_2 {
+    max-width: 700px;
+}
+#comment {
+    background-color: blanchedalmond;
+}
+.media_content {
+    display: flex;
+    justify-content: space-evenly;
+}
+.show_display p {
+    color: black;
+}
+#rsvp {
+    color: black;
+}
