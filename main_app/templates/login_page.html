@@ -16,6 +16,7 @@
         <a href="/login_reg">Login or Register</a>
         {% if 'user_id' in request.session %}
         <a href="/logout">Log Out</a>
+        <a href="/edit/{{request.session.user_id}}">Edit User Info</a>
         {% endif %}
     </div>
     <div class="main_content">
@@ -24,7 +25,7 @@
     <div class="header">
         <h1>Register or log in to RSVP for shows or leave comments on upcoming or past shows.</h1>
     </div>
-    <div id="wrapper">
+    <div class="wrapper">
         <div id="registration">
             <h1>Registration</h1>
             <form action="register" method="post">

@@ -1,3 +1,4 @@
+import this
 from django.shortcuts import render, redirect
 from . models import *
 from django.contrib import messages
@@ -72,6 +73,22 @@ def rsvps(request, show_id):
         'current_show_rsvps': current_show.rsvp.all()
     }
     return render(request, 'rsvps.html', context)
+
+def edit_page(request, user_id):
+    context = {
+        'current_user': User.objects.get(id = user_id),
+    }
+    return render(request, 'edit.html', context)
+
+def edit_info(request, user_id):
+    if request.method == "POST":
+        current_user = User.objects.get(id = user_id)
+        current_user.first_name = request.POST['first_name']
+        current_user.last_name = request.POST['last_name']
+        current_user.email = request.POST['email']
+        current_user.save()
+        return redirect(f'/edit/{user_id}')
+    return redirect('/login_reg')
 
     
 # Create your views here.

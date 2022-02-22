@@ -13,4 +13,6 @@ urlpatterns = [
     path('media', views.media),
     path('rsvp/<int:user_id>/<int:show_id>', views.rsvp),
     path('rsvps/<int:show_id>', views.rsvps),
+    path('edit/<int:user_id>', views.edit_page),
+    path('edit_info/<int:user_id>', views.edit_info),
 ]

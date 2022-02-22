@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User Info</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="main_content">
+    <h2>Welcome {{current_user.first_name}} {{current_user.last_name}}</h2>
+</div>
+<div id="edit_form">
+    <form action="/edit_info/{{current_user.id}}" method="post">
+        {% csrf_token %}
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" name="first_name" value="{{current_user.first_name}}">
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="last_name" value="{{current_user.last_name}}">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" value="{{current_user.email}}">
+        <input type="submit" class="submit">
+    </form>
+</div>
+<div id="nav_bar">
+    <a href="/shows">Back to Shows</a>
+</div>
+
+</body>
+</html>

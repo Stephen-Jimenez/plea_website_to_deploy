@@ -11,6 +11,9 @@ body {
     display: flex;
     justify-content: center;
 }
+.description {
+    text-align: center;
+}
 #nav_bar {
     min-height: 40px;
     display: flex;
@@ -24,9 +27,12 @@ h2 {
 }
 .show_display {
     background-color: red;
+    width: 800px;
+    margin: auto;
+    text-align: center;
 }
-#member_photos, img {
-    display: block;
+.show_display, label, input {
+    margin: auto;
 }
 p {
     color: red;
@@ -35,12 +41,11 @@ p {
     text-align: center;
     color: red;
 }
-#wrapper {
+.wrapper {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     color: red;
 }
-
 label, input {
     display: block;
 }
@@ -71,4 +76,9 @@ label, input {
 }
 #rsvp {
     color: black;
+}
+#edit_form {
+    color: red;
+    display: flex;
+    justify-content: center;
 }

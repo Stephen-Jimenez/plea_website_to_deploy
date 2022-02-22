@@ -16,6 +16,7 @@
         <a href="/login_reg">Login or Register</a>
         {% if 'user_id' in request.session %}
         <a href="/logout">Log Out</a>
+        <a href="/edit/{{request.session.user_id}}">Edit User Info</a>
         {% endif %}
     </div>
     <div class="main_content">
@@ -24,31 +25,33 @@
     <div class="header">
         <h1>Future Shows</h1>
     </div>
-    {% for one_show in upcoming_shows %}
-    <div class="show_display">
-        <h1>{{one_show.name}}</h1>
-        <p>{{one_show.venue}}</p>
-        <p>{{one_show.city}}, {{one_show.state}}</p>
-        <p>{{one_show.show_date}} at {{one_show.time}}</p>
-        <div id="comment">
-            {% for one_comment in one_show.comments_posted_on.all %}
-            <p>{{one_comment.comment}}</p>
-            <p> Posted by: {{one_comment.posted_by.first_name}} {{one_comment.posted_by.last_name}}</p>
-            {% endfor %}
+    <div id="show_wrapper"> 
+        {% for one_show in upcoming_shows %}
+        <div class="show_display">
+            <h1>{{one_show.name}}</h1>
+            <p>{{one_show.venue}}</p>
+            <p>{{one_show.city}}, {{one_show.state}}</p>
+            <p>{{one_show.show_date}} at {{one_show.time}}</p>
+            <div id="comment">
+                {% for one_comment in one_show.comments_posted_on.all %}
+                <p>{{one_comment.comment}}</p>
+                <p> Posted by: {{one_comment.posted_by.first_name}} {{one_comment.posted_by.last_name}}</p>
+                {% endfor %}
+            </div>
+            {% if 'user_id' in request.session %}
+            <form action="/add_comment" method="post">
+                {% csrf_token %}
+                <label for="comment">Add comment:</label>
+                <input type="text" id="comment" name="comment">
+                <input type="hidden" name="id" value="{{one_show.id}}">
+                <input type="submit" value="Submit Comment">
+            </form>
+            <a href="/rsvp/{{request.session.user_id}}/{{one_show.id}}">Click here to let Plea of Insanity know you're coming to this show!</a>
+            {% endif %}
+            <p>{{one_show.rsvp.count}} people are coming to this show! <a href="/rsvps/{{one_show.id}}">Click here to see who is coming to this show!</a></p>
         </div>
-        {% if 'user_id' in request.session %}
-        <form action="/add_comment" method="post">
-            {% csrf_token %}
-            <label for="comment">Add comment:</label>
-            <input type="text" id="comment" name="comment">
-            <input type="hidden" name="id" value="{{one_show.id}}">
-            <input type="submit" value="Submit Comment">
-        </form>
-        <a href="/rsvp/{{request.session.user_id}}/{{one_show.id}}">Click here to let Plea of Insanity know you're coming to this show!</a>
-        {% endif %}
-        <p>{{one_show.rsvp.count}} people are coming to this show! <a href="/rsvps/{{one_show.id}}">Click here to see who is coming to this show!</a></p>
-    </div>
-    {% endfor %}
+        {% endfor %}
+    </div> 
     <div class="header">
         <h1>Past Shows</h1>
     </div>
