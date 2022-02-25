@@ -24,9 +24,25 @@
         <input type="submit" class="submit">
     </form>
 </div>
+<div class="main_content">
+    <h2>{{current_user.first_name}}'s Comments</h2>
+</div>
+{%  for one_comment in current_user.comments_posted.all %}
+<div id="comment_delete">
+    <p>{{one_comment.comment}} <a href="/delete_comment/{{one_comment.id}}/{{current_user.id}}">Delete this comment</a></p>
+</div>
+{% endfor %}
 <div id="nav_bar">
     <a href="/shows">Back to Shows</a>
 </div>
-
+<div id = "errors">
+    {% if messages %}
+        <ul class="messages">    
+            {% for message in messages %}    
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
 </body>
 </html>

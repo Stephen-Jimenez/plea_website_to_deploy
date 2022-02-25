@@ -82,3 +82,7 @@ label, input {
     display: flex;
     justify-content: center;
 }
+#comment_delete {
+    display: flex;
+    justify-content: center;
+}

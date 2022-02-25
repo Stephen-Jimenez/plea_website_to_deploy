@@ -46,6 +46,27 @@ class UserManager(models.Manager):
         elif bcrypt.checkpw(postData['password'].encode(), existing_user[0].password.encode()) != True:
             errors['password_check'] = 'Email and password do not match'
         return errors
+   def edit_validator(self, postData):
+       errors = {}
+       NAME_REGEX = re.compile(r'[a-zA-Z]')
+       if not NAME_REGEX.match(postData['first_name']):
+            errors['first_name_re'] = 'First name can only include letters'
+       if len(postData['first_name']) == 0:
+            errors['first_name'] = 'First name is required'
+       if len(postData['first_name']) < 2:
+            errors['first_name_len'] = 'First name must include at least 2 characters'
+       if not NAME_REGEX.match(postData['last_name']):
+            errors['last_name_re'] = 'Last name can only include letters'
+       if len(postData['last_name']) == 0:
+            errors['last_name'] = 'Last name is required'
+       if len(postData['last_name']) < 2:
+            errors['last_name_len'] = 'Last name must include at least 2 characters'
+       EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+       if not EMAIL_REGEX.match(postData['email']):        
+            errors['email'] = "Invalid email address!"
+       if len(User.objects.filter(email = postData['email'])) > 0:
+            errors['email_unique'] = 'Email is already registered'
+       return errors
 
 class User(models.Model):
     first_name = models.CharField(max_length=45)

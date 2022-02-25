@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from . models import *
 from django.contrib import messages
 import bcrypt
+from django.utils import timezone
 
 def index(request):
     return render(request, 'index.html')
@@ -11,9 +12,10 @@ def bio(request):
     return render(request, 'bio.html')
 
 def shows(request):
+    now = timezone.now()
     context = {
-        'upcoming_shows': Show.objects.filter(show_date__range=["2022-02-15", "2050-12-31"]),
-        'past_shows': Show.objects.filter(show_date__range=["2016-01-01", "2022-02-14"]),
+        'upcoming_shows': Show.objects.filter(show_date__gt=now).order_by('show_date'),
+        'past_shows': Show.objects.filter(show_date__lt=now).order_by('-show_date'),
     }
     return render(request, 'shows.html', context)
 
@@ -82,11 +84,23 @@ def edit_page(request, user_id):
 
 def edit_info(request, user_id):
     if request.method == "POST":
+        errors = User.objects.edit_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect(f'/edit/{user_id}')
         current_user = User.objects.get(id = user_id)
         current_user.first_name = request.POST['first_name']
         current_user.last_name = request.POST['last_name']
         current_user.email = request.POST['email']
         current_user.save()
+        return redirect(f'/edit/{user_id}')
+    return redirect('/login_reg')
+
+def delete_comment(request, comment_id, user_id):
+    if 'user_id' in request.session:
+        comment_to_delete = Comment.objects.get(id = comment_id)
+        comment_to_delete.delete()
         return redirect(f'/edit/{user_id}')
     return redirect('/login_reg')
 

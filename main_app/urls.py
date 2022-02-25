@@ -15,4 +15,5 @@ urlpatterns = [
     path('rsvps/<int:show_id>', views.rsvps),
     path('edit/<int:user_id>', views.edit_page),
     path('edit_info/<int:user_id>', views.edit_info),
+    path('delete_comment/<int:comment_id>/<int:user_id>', views.delete_comment),
 ]
