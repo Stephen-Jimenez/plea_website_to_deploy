@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <div id="nav_bar">
+    <div class="nav_bar">
         <a href="/">Home</a>
         <a href="/shows">Shows</a>
         <a href="/media">Media</a>
@@ -35,7 +35,7 @@
             <div id="comment">
                 {% for one_comment in one_show.comments_posted_on.all %}
                 <p>{{one_comment.comment}}</p>
-                <p> Posted by: {{one_comment.posted_by.first_name}} {{one_comment.posted_by.last_name}}</p>
+                <p> Posted by: {{one_comment.posted_by.first_name}} {{one_comment.posted_by.last_name}} on {{one_comment.created_at}}</p>
                 {% endfor %}
             </div>
             {% if 'user_id' in request.session %}
@@ -49,6 +49,15 @@
             <a href="/rsvp/{{request.session.user_id}}/{{one_show.id}}">Click here to let Plea of Insanity know you're coming to this show!</a>
             {% endif %}
             <p>{{one_show.rsvp.count}} people are coming to this show! <a href="/rsvps/{{one_show.id}}">Click here to see who is coming to this show!</a></p>
+            <div class = "comment_errors">
+                {% if messages %}
+                    <ul class="messages">    
+                        {% for message in messages %}    
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
         </div>
         {% endfor %}
     </div> 
@@ -64,7 +73,7 @@
         <div id="comment">
             {% for one_comment in one_show.comments_posted_on.all %}
             <p>{{one_comment.comment}}</p>
-            <p> Posted by: {{one_comment.posted_by.first_name}} {{one_comment.posted_by.last_name}}</p>
+            <p> Posted by: {{one_comment.posted_by.first_name}} {{one_comment.posted_by.last_name}} on {{one_comment.created_at}}</p>
             {% endfor %}
         </div>
         {% if 'user_id' in request.session %}
@@ -76,6 +85,15 @@
             <input type="submit" value="Submit Comment">
         </form>
         {% endif %}
+        <div class = "comment_errors">
+            {% if messages %}
+                <ul class="messages">    
+                    {% for message in messages %}    
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
     </div>
     {% endfor %}
 </body>

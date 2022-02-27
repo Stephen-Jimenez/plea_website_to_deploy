@@ -64,9 +64,20 @@ class UserManager(models.Manager):
        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
        if not EMAIL_REGEX.match(postData['email']):        
             errors['email'] = "Invalid email address!"
-       if len(User.objects.filter(email = postData['email'])) > 0:
-            errors['email_unique'] = 'Email is already registered'
+       if len(postData['email']) == 0:
+            errors['email'] = 'Email address is required'
+       current_user = User.objects.get(id = postData['user_id'])
+       if postData['email'] != current_user.email:
+            if len(User.objects.filter(email = postData['email'])) > 0:
+                errors['email_unique'] = 'Email is already registered'
        return errors
+
+class CommentManager(models.Manager):
+    def comment_validator(self, postData):
+        errors = {}
+        if len(postData['comment']) < 3:
+            errors['comment_len'] = 'Comment must include at least 3 characters'
+        return errors
 
 class User(models.Model):
     first_name = models.CharField(max_length=45)
@@ -94,6 +105,7 @@ class Comment(models.Model):
     show_posted_on = models.ForeignKey(Show, related_name='comments_posted_on', on_delete=CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = CommentManager()
 
 
 # Create your models here.

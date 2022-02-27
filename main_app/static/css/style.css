@@ -14,12 +14,12 @@ body {
 .description {
     text-align: center;
 }
-#nav_bar {
+.nav_bar {
     min-height: 40px;
     display: flex;
     justify-content: space-around;
 }
-#nav_bar a {
+.nav_bar a {
     color: red;
 }
 h2 {
@@ -53,10 +53,14 @@ label, input {
 .submit {
     margin: 15px;
 }
-#errors {
+.errors {
     display: flex;
     justify-content: center;
     color: red;
+}
+.comment_errors, ul, li{
+    display: flex;
+    justify-content: center;
 }
 #plea_logo_with_band_2 {
     max-width: 700px;
@@ -66,6 +70,8 @@ label, input {
 }
 #comment {
     background-color: blanchedalmond;
+    margin: auto;
+    width: 400px;
 }
 .media_content {
     display: flex;

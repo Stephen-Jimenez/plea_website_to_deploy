@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <div id="nav_bar">
+    <div class="nav_bar">
         <a href="/">Home</a>
         <a href="/shows">Shows</a>
         <a href="/media">Media</a>
@@ -55,7 +55,7 @@
             </form>
         </div>
     </div>
-    <div id = "errors">
+    <div class = "errors">
         {% if messages %}
             <ul class="messages">    
                 {% for message in messages %}    

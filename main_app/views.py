@@ -54,6 +54,11 @@ def logout(request):
 
 def add_comment(request):
     if request.method == "POST":
+        errors = Comment.objects.comment_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/shows')
         current_user = User.objects.get(id = request.session['user_id'])
         current_show = Show.objects.get(id = request.POST['id'])
         Comment.objects.create(comment = request.POST['comment'], posted_by = current_user, show_posted_on = current_show)
