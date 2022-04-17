@@ -1,11 +1,9 @@
 body {
     background-color: black;
+    font-family: Book Antiqua
 }
 #plea_logo {
     max-width: 800px;
-}
-#plea_logo_with_band {
-    max-width: 500px;
 }
 .main_content {
     display: flex;
@@ -30,6 +28,7 @@ h2 {
     width: 800px;
     margin: auto;
     text-align: center;
+    border-radius: 15px;
 }
 .show_display, label, input {
     margin: auto;
@@ -72,6 +71,7 @@ label, input {
     background-color: blanchedalmond;
     margin: auto;
     width: 400px;
+    border-radius: 15px;
 }
 .media_content {
     display: flex;
@@ -91,4 +91,16 @@ label, input {
 #comment_delete {
     display: flex;
     justify-content: center;
+}
+#bandcamp {
+    margin-left: 300px;
+}
+#facebook-link {
+    font-size: x-large;
+}
+#bandcamp-link {
+    font-size: x-large;
+}
+img {
+    border-radius: 15px;
 }
